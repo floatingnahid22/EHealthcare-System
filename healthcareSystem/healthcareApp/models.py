@@ -23,3 +23,18 @@ class doctorInfo(models.Model):
 
     def __str__(self):
         return self.user.fullName
+
+class Appointment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=100, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
+    date = models.DateField()
+
+    Morning_Slot = 'Morning Slot'
+    Evening_Slot = 'Evening Slot'
+    timeSlot_choices = [
+        (Morning_Slot, 'Morning Slot'),
+        (Evening_Slot, 'Evening Slot'),
+    ]
+    timeSlot = models.CharField(max_length=50, choices=timeSlot_choices)

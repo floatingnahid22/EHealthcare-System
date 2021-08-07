@@ -3,8 +3,11 @@
 
 {% block content %}
 
-<div class="container px-4 mt-5">
-    {% for doctor in doctors %}
+<div class="container mt-5">
+    {% if searched %}
+    <h3>Search Results:</h3>
+    <div class="row">
+    {% for doctor in result %}
     <div class="row gx-4">
         <div class="col mb-4">
             <div class="p-3 border bg-light">
@@ -14,11 +17,13 @@
                 <p class=""><label></label>{{doctor.degree}}</p>
                 <p class=""><label>Fees: </label> {{doctor.fees}}</p>
                 <p class=""><label>Visiting Hours: </label> {{doctor.visitingHours}}</p>
-                <a class="btn btn-primary" href="{% url 'appointment' %}">Make Appointment</a>
+                <button type="button" class="btn btn-primary">Make Appointment</button>
             </div>
         </div>
     </div>
     {% endfor %}
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}

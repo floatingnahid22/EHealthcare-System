@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from .models import *
+from django.db.models import Q
 
 # Create your views here.
 # /----- Views for Homepage -----/
@@ -78,6 +79,8 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
+
+# /----- Views for Doctor Information Form -----/
 def doctor(request):
     if request.method == 'POST':
         fullName = request.POST['fullName']
@@ -98,11 +101,32 @@ def doctor(request):
     else:
         return render(request, 'html/doctor.html')
 
+
+# /----- Views for All Doctors List -----/
 def doctorsList(request):
     doctors = doctorInfo.objects.all()
 
     context = {'doctors': doctors}
     return render(request, 'html/doctorsList.html', context)
 
+
+# /----- Views for Patient Information Form -----/
 def patient(request):
     return render(request, 'html/patient.html')
+
+
+# /----- Views for Search -----/
+def searchResult(request):
+    if request.method == "GET":
+        searched = request.GET.get('searched')
+        result = doctorInfo.objects.all().filter(Q(fullName__icontains=searched) | Q(speciality__icontains=searched))
+
+        context = {'result': result, 'searched': searched}
+        return render(request, 'html/searchResult.html', context)
+    else:
+        return render(request, 'html/searchResult.html')
+
+
+# /----- Views for Appointment -----/
+def appointment(request):
+    return render(request, 'html/appointment.html')
