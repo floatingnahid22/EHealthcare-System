@@ -1,0 +1,51 @@
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    {% if messages %}
+    <ul class="messages" id="msg">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <p class="alert error"> {{message}} </p>
+        {% elif message.tags == 'info' %}
+        <p class="alert success"> {{message}} </p>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="fullName">Full Name:</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter Full Name" name="fullName" required>
+        </div>
+        <div class="form-group">
+            <label for="designation">Designation:</label>
+            <input type="text" class="form-control" id="designation" placeholder="Enter Designation" name="designation">
+        </div>
+        <div class="form-group">
+            <label for="speciality">Speciality:</label>
+            <input type="text" class="form-control" id="speciality" placeholder="Enter your speciality area" name="speciality" required>
+        </div>
+        <div class="form-group">
+            <label for="degree">Degree:</label>
+            <input type="text" class="form-control" id="degree" placeholder="" name="degree" required>
+        </div>
+        <div class="form-group">
+            <label for="fees">Fees:</label>
+            <input type="text" class="form-control" id="fees" placeholder="Enter Fees" name="fees" required>
+        </div>
+        <div class="form-group">
+            <label for="visitingHours">Visiting Hours:</label>
+            <input type="text" class="form-control" id="visitingHours" placeholder="Saturday-Thursday, 10.00AM-2PM & 5PM-8PM" name="visitingHours" required>
+        </div>
+        <div class="form-group">
+            <label for="image">Upload Image:</label>
+            <input type="file" class="form-control" data-file_types="jpg|jpeg|gif|png" name="image" id="image" placeholder="">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
