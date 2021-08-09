@@ -1,0 +1,75 @@
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row ms-5 me-5">
+    <div class="col" style="margin-top: 30px;">
+        <div class="row" >
+            <div class="col-sm-4">
+                <img src="{{ doctor.image.url }}" style="width: 100%; height: 200px;">
+            </div>
+            <div class="col" style="background-color: #ebeff5">
+                <h2 class="">{{doctor.fullName}}</h2>
+                <p class="border-bottom border-dark"><label></label>{{doctor.speciality}}
+                <p class=""><label></label>{{doctor.degree}}
+                <a class="btn btn-primary btn-sm btn-block mt-4" href="">Update Profile</a>
+            </div>
+        </div>
+    </div>
+    <div class="col" style="margin-top: 30px;">
+        <div class="col-md">
+            <div class="card text-center text-white wb-3" id="" style="background-color: #4cb4c7">
+                <div class="card-header">
+                    <h5 class="card-title">Appoinments</h5>
+                </div>
+                <div class="card-header">
+                    <h5 class="card-title">{{appointments_count}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row ms-5 me-5" style="margin-top: 20px">
+    <div class="col">
+        <div class="card card-body" style="background-color: #ebeff5">
+            <h5 class="text-center">Appointments</h5>
+            <hr>
+            <table class="table table-sm">
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Patient email</th>
+                    <th>Mobile No.</th>
+                    <th>Time Slot</th>
+                    <th>Appointment Date</th>
+                </tr>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{appointment.name}}</td>
+                    <td>{{appointment.email}}</td>
+                    <td>{{appointment.phone}}</td>
+                    <td>{{appointment.timeSlot}}</td>
+                    <td>{{appointment.date}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="container px-4 mt-5">-->
+<!--    <div class="row gx-4">-->
+<!--        <div class="col mb-4 d-flex">-->
+<!--            <img class="" src="{{doctor.image.url}}" width="20%">-->
+<!--            <div class="p-3 border bg-light ps-5">-->
+<!--                <h3 class=""><label></label>{{doctor.fullName}}</h3>-->
+<!--                <p class="border-bottom border-dark"><label></label>{{doctor.speciality}}</p>-->
+<!--                <p class=""><label></label>{{doctor.degree}}</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+{% endblock %}

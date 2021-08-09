@@ -14,7 +14,7 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form action="" method="POST">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <label for="fullName">Full Name:</label>

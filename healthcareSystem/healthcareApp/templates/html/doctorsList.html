@@ -14,8 +14,11 @@
                 <p class=""><label></label>{{doctor.degree}}</p>
                 <p class=""><label>Fees: </label> {{doctor.fees}}</p>
                 <p class=""><label>Visiting Hours: </label> {{doctor.visitingHours}}</p>
-                <a class="btn btn-primary" href="{% url 'appointment' %}">Make Appointment</a>
+                <a class="btn btn-primary" href="{% url 'appointment' doctor.id %}">Make Appointment</a>
             </div>
+        </div>
+        <div class="col mb-4">
+            <img class="img-fluid" src="{{doctor.image.url}}" width="50%" height="50%">
         </div>
     </div>
     {% endfor %}

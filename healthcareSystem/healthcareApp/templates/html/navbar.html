@@ -9,7 +9,11 @@
                 <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="searched">
                 <button class="btn btn-outline-success" type="submit">Search</button>
                 {% if user.is_authenticated %}
-                <a class="text-decoration-none ms-2 d-flex align-items-center" href=""><i class="fas fa-user me-1"></i>{{user.username}}</a>
+                {% if user.usertype.patient == False %}
+                <a class="text-decoration-none ms-2 d-flex align-items-center" href="{% url 'doctorDashboard' %}"><i class="fas fa-user me-1"></i>{{user.username}}</a>
+                {% else %}
+                <a class="text-decoration-none ms-2 d-flex align-items-center" href="{% url 'patientDashboard' %}"><i class="fas fa-user me-1"></i>{{user.username}}</a>
+                {% endif %}
                 <a class="btn btn-outline-danger ms-2" href="{% url 'logout' %}">Logout</a>
                 {% else %}
                 <a class="btn btn-outline-success ms-2" href="{% url 'login' %}">Login</a>

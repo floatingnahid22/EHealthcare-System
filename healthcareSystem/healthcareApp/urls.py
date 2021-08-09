@@ -9,8 +9,10 @@ urlpatterns = [
 	path("login", views.login, name="login"),
 	path("logout", views.logout, name="logout"),
 	path("doctor", views.doctor, name="doctor"),
+	path("doctorDashboard", views.doctorDashboard, name="doctorDashboard"),
 	path("doctorsList", views.doctorsList, name="doctorsList"),
 	path("patient", views.patient, name="patient"),
+	path("patientDashboard", views.patientDashboard, name="patientDashboard"),
 	path("searchResult", views.searchResult, name="searchResult"),
-	path("appointment", views.appointment, name="appointment"),
+	path("doctor/<int:doctor_id>/", views.appointment, name="appointment"),
 ]

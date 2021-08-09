@@ -89,9 +89,10 @@ def doctor(request):
         degree = request.POST['degree']
         fees = request.POST['fees']
         visitingHours = request.POST['visitingHours']
+        image = request.FILES['image']
 
         doctorinfo = doctorInfo(fullName=fullName, designation=designation, speciality=speciality, degree=degree, fees=fees,
-                                visitingHours=visitingHours)
+                                visitingHours=visitingHours, image=image)
         if request.user.is_authenticated:
             user = request.user
             doctorinfo.user_id = user.id
@@ -112,7 +113,25 @@ def doctorsList(request):
 
 # /----- Views for Patient Information Form -----/
 def patient(request):
-    return render(request, 'html/patient.html')
+    if request.method == 'POST':
+        fullName = request.POST['fullName']
+        address = request.POST['address']
+        phoneNumber = request.POST['phoneNumber']
+        DoB = request.POST['DoB']
+        age = request.POST['age']
+        bloodGroup = request.POST['bloodGroup']
+        bloodPressure = request.POST['bloodPressure']
+
+        patientinfo = patientInfo(fullName=fullName, address=address, phoneNumber=phoneNumber, DoB=DoB,
+                                  age=age, bloodGroup=bloodGroup, bloodPressure=bloodPressure)
+        if request.user.is_authenticated:
+            user = request.user
+            patientinfo.user_id = user.id
+            patientinfo.save()
+            messages.info(request, "Thank You, Successfully submitted")
+            return redirect('patient')
+    else:
+        return render(request, 'html/patient.html')
 
 
 # /----- Views for Search -----/
@@ -128,5 +147,42 @@ def searchResult(request):
 
 
 # /----- Views for Appointment -----/
-def appointment(request):
-    return render(request, 'html/appointment.html')
+def appointment(request, doctor_id):
+    doctors = doctorInfo.objects.get(pk=doctor_id)
+
+    if request.method == 'POST':
+        name = request.POST['name']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        date = request.POST['date']
+        timeSlot = request.POST['timeSlot']
+
+        appointmentinfo = Appointment(name=name, phone=phone, email=email, date=date, timeSlot=timeSlot)
+        if request.user.is_authenticated:
+            user = request.user
+            appointmentinfo.user_id = user.id
+            appointmentinfo.doctor = doctors
+            appointmentinfo.save()
+            return redirect('/')
+    else:
+        return render(request, 'html/appointment.html')
+
+    context = {'doctors': doctors}
+    return render(request, 'html/appointment.html', context)
+
+
+# /----- Views for Doctor Dashboard -----/
+def doctorDashboard(request):
+    if request.user.is_authenticated:
+        user = request.user
+        doctor = doctorInfo.objects.get(user=user)
+        appointments = Appointment.objects.all()
+        appointments_count = appointments.count()
+
+    context = {'doctor': doctor, 'appointments': appointments, 'appointments_count': appointments_count}
+    return render(request, 'html/doctorDashboard.html', context)
+
+
+# /----- Views for Patient Dashboard -----/
+def patientDashboard(request):
+    return render(request, 'html/patientDashboard.html')

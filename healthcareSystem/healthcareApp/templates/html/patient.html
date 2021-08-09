@@ -2,8 +2,50 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <h1>I am Patient</h1>
+<div class="container mt-5">
+    {% if messages %}
+    <ul class="messages" id="msg">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <p class="alert error"> {{message}} </p>
+        {% elif message.tags == 'info' %}
+        <p class="alert success"> {{message}} </p>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group mt-3">
+            <label for="fullName">Full Name:</label>
+            <input type="text" class="form-control mt-1" id="fullName" placeholder="Enter Your Full Name" name="fullName" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control mt-1" id="address" placeholder="Enter Your Address" name="address" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" class="form-control mt-1" id="phoneNumber" placeholder="Enter Your Number" name="phoneNumber" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="DoB">Select Your Date of Birth:</label>
+            <input type="date" class="form-control mt-1" id="DoB" name="DoB" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="age">Age:</label>
+            <input type="number" class="form-control mt-1" id="age" placeholder="Enter Your Age" name="age" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="bloodGroup">Blood Group:</label>
+            <input type="text" class="form-control mt-1" id="bloodGroup" placeholder="Enter Your Blood Group" name="bloodGroup" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="bloodPressure">Blood Pressure:</label>
+            <input type="text" class="form-control mt-1" id="bloodPressure" placeholder="Enter Your Blood Pressure" name="bloodPressure" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
 </div>
 
 {% endblock %}
