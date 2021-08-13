@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
+
+<div class="container mb-5">
     {% if messages %}
     <ul class="messages" id="msg">
         {% for message in messages %}
@@ -18,7 +19,7 @@
         {% csrf_token %}
         <fieldset>
             <div id="legend">
-                <legend class="">Register</legend>
+                <legend class="mt-4">Sign Up</legend>
             </div>
             <div class="control-group">
                 <!-- Username -->
@@ -69,6 +70,7 @@
                 </div>
             </div>
         </fieldset>
+        <h6 class="mt-4">Already have an account? <a class="text-decoration-none" href="{% url 'login' %}">Login</a></h6>
     </form>
 </div>
 

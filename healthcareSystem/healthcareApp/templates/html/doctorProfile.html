@@ -1,0 +1,50 @@
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+            <i class="fas fa-user-md me-2"></i>{{user.username}}
+        </div>
+        <div class="list-group list-group-flush my-3">
+            <a href="{% url 'doctorDashboard' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="{% url 'doctorProfile' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <i class="fas fa-user me-2"></i>Profile</a>
+            <a href="{% url 'doctorAppointments' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <i class="fas fa-calendar-alt me-2"></i>Appointments</a>
+        </div>
+    </div>
+    <!-- sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="d-flex ms-4 mt-4 align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+        </div>
+
+        <div class="container-fluid px-4">
+            <div class="row mt-5 mb-3">
+                <div class="col-lg-4 mt-3 ms-3">
+                    <img class="img" src="{{doctor.image.url}}" width="250px" height="250px">
+                </div>
+
+
+                <div class="col-lg mt-3 ms-3">
+                    <h1>{{doctor.fullName}}</h1>
+                    <h6 class="border-bottom border-dark mb-3"><label></label>{{doctor.speciality}}</h6>
+                    <h6 class=""><label></label>{{doctor.degree}}</h6>
+                    <h6 class=""><label>Your email:</label> {{doctor.user.email}}</h6>
+                    <h6 class=""><label>Your fees:</label> Tk. {{doctor.fees}}</h6>
+                    <h6 class=""><label>Your Visiting Hour:</label> {{doctor.visitingHours}}</h6>
+                    <a class="btn btn-primary btn-sm btn-block mt-4" href="{% url 'doctorUpdateProfile' %}">Update Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

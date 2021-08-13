@@ -1,0 +1,89 @@
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+            <i class="fas fa-user-md me-2"></i>{{user.username}}
+        </div>
+        <div class="list-group list-group-flush my-3">
+            <a href="{% url 'doctorDashboard' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="{% url 'doctorProfile' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <i class="fas fa-user me-2"></i>Profile</a>
+            <a href="{% url 'doctorAppointments' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <i class="fas fa-calendar-alt me-2"></i>Appointments</a>
+        </div>
+    </div>
+    <!-- sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="d-flex ms-4 mt-4 align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+        </div>
+
+        <div class="container-fluid px-4">
+            <div class="row g-3 my-2">
+                <div class="col-lg-3">
+                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                        <div>
+                            <h3 class="fs-2 text-center">{{appointments_count}}</h3>
+                            <p class="fs-5">Appointments</p>
+                        </div>
+                        <i class="fas fa-calendar-check fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 d-flex">
+                <div class="col">
+                    <h3 class="fs-4 mb-3">All Appointments</h3>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <form method="get">
+                        <!--{{myFilter.form}}-->
+                        <select name="timeSlot" id="timeSlot" class="form-input p-1" aria-label="Default select example">
+                            <option selected>All Time Slot</option>
+                            <option value="Morning Slot">Morning Slot</option>
+                            <option value="Evening Slot">Evening Slot</option>
+                        </select>
+                        <button class="btn-sm btn-primary" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <table class="table bg-white rounded shadow-sm table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Patient Email</th>
+                            <th scope="col">Mobile No.</th>
+                            <th scope="col">Time Slot</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>{{appointment.name}}</td>
+                            <td>{{appointment.email}}</td>
+                            <td>{{appointment.phone}}</td>
+                            <td>{{appointment.timeSlot}}</td>
+                            <td>{{appointment.date}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

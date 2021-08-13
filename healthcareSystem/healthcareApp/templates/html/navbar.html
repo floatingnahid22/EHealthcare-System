@@ -5,8 +5,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <form class="d-flex" method="GET" action="{% url 'searchResult' %}">
-                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="searched">
+            <form class="d-flex flex-wrap" method="GET" action="{% url 'searchResult' %}">
+                <input class="form-control me-2" style="width: auto" type="text" placeholder="Search" aria-label="Search" name="searched">
                 <button class="btn btn-outline-success" type="submit">Search</button>
                 {% if user.is_authenticated %}
                 {% if user.usertype.patient == False %}
